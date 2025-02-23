@@ -13,27 +13,27 @@ export default function HomePage() {
     const images = [image1, image2];
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // useEffect(() => {
-    //     const ctx = gsap.context(() => {
-    //         const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 });
 
-    //         tl.to(bannerRef.current, {
-    //             opacity: 0,
-    //             duration: 1.5,
-    //             ease: "power2.inOut",
-    //             onComplete: () => {
-    //                 setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    //             },
-    //         })
-    //             .to(bannerRef.current, {
-    //                 opacity: 1,
-    //                 duration: 1.5,
-    //                 ease: "power2.inOut",
-    //             });
-    //     });
+            tl.to(bannerRef.current, {
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+                },
+            })
+                .to(bannerRef.current, {
+                    opacity: 1,
+                    duration: 1.5,
+                    ease: "power2.inOut",
+                });
+        });
 
-    //     return () => ctx.revert();
-    // }, []);
+        return () => ctx.revert();
+    }, []);
 
     return (
         <div className="relative min-h-screen md:mt-20 mt-16">

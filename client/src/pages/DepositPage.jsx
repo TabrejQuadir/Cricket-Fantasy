@@ -32,7 +32,7 @@ const DepositPage = () => {
     const fetchQrCode = async () => {
       setQrLoading(true);
       try {
-        const response = await axios.get("http://backend.prepaidtaskskill.in/api/admin/get-qr");
+        const response = await axios.get("https://backend.prepaidtaskskill.in/api/admin/get-qr");
         if (!response.data || !response.data.qrCode) {
           throw new Error("QR Code URL not found in API response.");
         }
