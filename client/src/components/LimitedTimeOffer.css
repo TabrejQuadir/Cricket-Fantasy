@@ -1,0 +1,188 @@
+.limited-time-offer {
+    max-width: 95%;
+    margin: 30px auto;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px rgba(255, 215, 0, 0.4);
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Flashing Timer */
+.flash-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+    margin-bottom: 1rem;
+}
+
+/* Countdown Timer */
+.timer {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 0px 0px 20px #ffcc00;
+}
+
+/* VIP Spots Container (Keeps Background Fixed) */
+.vip-spots-container {
+    width: 100%;
+    border: 1px solid #ffcc00;
+    padding: 8px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* Sliding VIP Spots Text */
+.vip-spots {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    padding: 6px 12px;
+    animation: slide-text 10s linear infinite alternate;
+}
+
+@keyframes slide-text {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Glowing Effect for VIP Spots */
+.glow {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    padding: 6px 12px;
+    border-radius: 12px;
+    color: black;
+    box-shadow: 0px 4px 20px rgba(255, 215, 0, 0.9);
+}
+
+/* Bonus Offer */
+.bonus-offer {
+    font-size: 1.7rem;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    color: black;
+    box-shadow: 0px 6px 20px rgba(255, 215, 0, 0.7);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Bonus Icon */
+.bonus-icon {
+    font-size: 2rem;
+    margin-right: 8px;
+}
+
+/* Call-to-Action Button */
+.cta {
+    background: white;
+    color: black;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease, transform 0.3s ease;
+    /* box-shadow: 0px 8px 25px rgba(255, 215, 0, 0.7); */
+}
+
+/* Hover Scale Effect */
+.cta:hover {
+    transform: scale(1.02);
+}
+
+/* Shiny Animation Effect */
+.cta::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, #ffcc00, transparent);
+    transition: all 0.4s ease-in-out;
+    transform: skewX(-30deg);
+}
+
+/* Activate Shine Animation */
+.cta:hover::after {
+    left: 100%;
+    transition: all 0.8s ease-in-out;
+}
+
+/* 🔥 Mobile Responsive Design */
+@media (max-width: 768px) {
+    .limited-time-offer {
+        max-width: 95%;
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+
+    .flash-title {
+        font-size: 1.8rem;
+    }
+
+    .timer {
+        font-size: 2.2rem;
+    }
+
+    .vip-spots {
+        font-size: 1.3rem;
+        padding: 5px 10px;
+    }
+
+    .bonus-offer {
+        font-size: 1.5rem;
+        padding: 10px;
+    }
+
+    .cta {
+        font-size: 1.3rem;
+        padding: 0.8rem 1.2rem;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .limited-time-offer {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .flash-title {
+        font-size: 1.5rem;
+    }
+
+    .timer {
+        font-size: 2rem;
+    }
+
+    .vip-spots {
+        font-size: 1.2rem;
+        padding: 4px 8px;
+    }
+
+    .bonus-offer {
+        font-size: 1.3rem;
+        padding: 8px;
+    }
+
+    .cta {
+        font-size: 1.2rem;
+        padding: 0.7rem 1rem;
+        border-radius: 8px;
+    }
+}

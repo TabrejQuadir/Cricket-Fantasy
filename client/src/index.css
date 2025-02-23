@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+html, body {
+  scroll-behavior: smooth;
+  background: black;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-150%);
+  }
+
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 150%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-20deg);
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(236, 72, 153, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 5px rgba(236, 72, 153, 0.2);
+  }
+}
+
+.animate-glow {
+  animation: glow 3.5s infinite alternate ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes shine {
+  0% {
+    left: -150%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+.animate-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(110deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 80%);
+  transform: skewX(-20deg);
+  animation: shine 2s ease-in-out infinite;
+}
+
+.animate-shine:hover {
+  box-shadow: 0 4px 15px rgba(255, 0, 128, 0.6);
+}
+
+@media (max-width: 768px) {
+  .MatchCard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .MatchCard .prev-button,
+  .MatchCard .next-button {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .MatchCard .match-card {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .MatchCard {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .MatchCard .prev-button {
+    margin-right: 1rem;
+  }
+
+  .MatchCard .next-button {
+    margin-left: 1rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .MatchCard {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .MatchCard .prev-button {
+    margin-right: 1rem;
+  }
+
+  .MatchCard .next-button {
+    margin-left: 1rem;
+  }
+}
+
+.bg-glass {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.bg-glass:hover {
+  box-shadow: 0 8px 20px rgba(255, 223, 0, 0.3);
+}

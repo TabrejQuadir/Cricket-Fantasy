@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+.react-time-picker.time-picker {
+    background-color: black !important; /* Set the background color to black */
+    color: white !important; /* Ensure the text color remains white */
+}
