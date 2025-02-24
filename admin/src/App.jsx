@@ -33,6 +33,7 @@ const App = () => {
 
                     {/* 🔐 Protected Routes (Only accessible after login) */}
                     <Route element={<ProtectedRoute />}>
+                        <Route path="*" element={<Dashboard />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/users" element={<Users />} />
                         <Route path="/add-tournament" element={<AddTournament />} />

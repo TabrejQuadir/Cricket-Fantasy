@@ -101,9 +101,9 @@ const WithDrawPage = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      {/* 🔗 Link to View All Withdrawal Requests */}
-      <div className="absolute top-28 left-6 sm:left-10 z-10 bg-black/50 px-3 py-2 rounded-lg">
+    <div className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-[100px]">
+      {/* 🔗 Link to View All WithDrawl Requests */}
+      <div className="absolute top-[90px] left-4 sm:left-10 z-10 bg-black/50 px-3 py-2 rounded-lg">
         <Link
           to="/withdraw-history"
           className="flex items-center gap-2 text-yellow-400 hover:text-yellow-500 text-lg font-semibold transition-all duration-300"
@@ -113,7 +113,8 @@ const WithDrawPage = () => {
       </div>
 
 
-      <div className="w-full max-w-lg mx-auto mt-10 sm:mt-16 p-6 bg-black/40 backdrop-blur-3xl border border-yellow-500/40 rounded-3xl shadow-lg text-white text-center">
+      {/* 💳 Withdraw Funds Card */}
+      <div className="w-full max-w-lg mx-auto mt-8 sm:mt-16 p-6 bg-black/40 backdrop-blur-3xl border border-yellow-500/40 rounded-3xl shadow-lg text-white text-center">
 
         <h2 className="text-3xl font-extrabold text-yellow-400 mb-6">💳 Withdraw Funds</h2>
 
@@ -122,7 +123,7 @@ const WithDrawPage = () => {
           Your Balance: <span className="text-yellow-400 font-bold">₹{user.balance.toFixed(2)}</span>
         </p>
 
-        {/* ✅ Default Bank Account Details with Loading Effect */}
+        {/* ✅ Default Bank Account Details */}
         {bankLoading ? (
           <div className="flex justify-center mt-4">
             <FaSpinner className="animate-spin text-yellow-400 text-3xl" />
@@ -179,9 +180,10 @@ const WithDrawPage = () => {
 
         {/* ✅ Success & Error Messages */}
         {successMessage && (
-          <p className="mt-4 flex items-center justify-center text-green-400">
-            <FaCheckCircle className="mr-2" /> {successMessage}
-          </p>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex items-center justify-center text-lg font-semibold text-green-400 mt-4">
+            {successMessage}
+          </motion.p>
+
         )}
         {errorMessage && (
           <div className="mt-4 text-center">
@@ -201,6 +203,7 @@ const WithDrawPage = () => {
 
       </div>
     </div>
+
   );
 };
 

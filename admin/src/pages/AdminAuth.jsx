@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserShield, FaLock, FaEnvelope, FaPhone } from "react-icons/fa";
 import axios from "axios";
@@ -20,23 +20,23 @@ const AdminAuth = () => {
         e.preventDefault();
         setError("");
         setLoading(true);
-    
+
         // 🔹 Send only required fields based on login or register mode
         const requestData = isLogin
             ? { email: formData.email, password: formData.password }
             : formData;
-    
+
         console.log("🔍 Sending data:", requestData); // ✅ Debugging
-    
+
         try {
             const response = await axios.post(
                 `https://backend.prepaidtaskskill.in/api/admin/${isLogin ? "login" : "register"}`,
                 requestData,
                 { headers: { "Content-Type": "application/json" } }
             );
-    
+
             console.log("✅ API Response:", response.data); // ✅ Debugging
-    
+
             if (response.data.success) {
                 localStorage.setItem("authToken", response.data.token);
                 navigate("/dashboard");
@@ -50,7 +50,16 @@ const AdminAuth = () => {
             setLoading(false);
         }
     };
-    
+
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                setError("");
+            }, 3000); // 3000 milliseconds = 3 seconds
+
+            return () => clearTimeout(timer); // Clear timeout if component unmounts or error changes
+        }
+    }, [error]);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black p-6">
@@ -117,7 +126,7 @@ const AdminAuth = () => {
 
                     <button
                         type="submit"
-                        className={`w-full p-3 rounded-xl font-semibold transition-all ${
+                        className={`w-full p-3 rounded-xl font-semibold transition-all cursor-pointer ${
                             loading
                                 ? "bg-yellow-500/40 cursor-not-allowed"
                                 : "bg-gradient-to-r from-yellow-500 to-yellow-700 hover:from-yellow-600 hover:to-yellow-800"
@@ -132,7 +141,7 @@ const AdminAuth = () => {
                     {isLogin ? "Don't have an admin account?" : "Already an admin?"}
                     <button
                         onClick={() => setIsLogin(!isLogin)}
-                        className="ml-2 text-yellow-400 hover:text-yellow-300"
+                        className="ml-2 text-yellow-400 hover:text-yellow-300 cursor-pointer"
                     >
                         {isLogin ? "Register" : "Login"}
                     </button>

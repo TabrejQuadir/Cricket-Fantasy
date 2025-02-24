@@ -14,6 +14,8 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const navigate = useNavigate();
+    const authToken = localStorage.getItem("authToken"); // Check if user is logged in
+
 
     // Toggle dropdowns (auto-close previous)
     const toggleDropdown = (dropdownName) => {
@@ -90,9 +92,22 @@ const Navbar = () => {
                         ]}
                     />
 
-                    <button onClick={handleLogout} className="flex items-center text-yellow-300 hover:text-yellow-500 transition-all duration-300 text-lg px-6 py-2 cursor-pointer">
-                        <FaArrowRight className="text-xl mr-2" /> Logout
-                    </button>
+                    {/* ✅ Conditionally Render Login or Logout Button */}
+                    {authToken ? (
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center text-yellow-300 hover:text-yellow-500 transition-all duration-300 text-lg px-6 py-2 cursor-pointer"
+                        >
+                            <FaArrowRight className="text-xl mr-2" /> Logout
+                        </button>
+                    ) : (
+                        <Link
+                            to="/auth"
+                            className="flex items-center text-yellow-300 hover:text-yellow-500 transition-all duration-300 text-lg px-6 py-2"
+                        >
+                            <FaArrowRight className="text-xl mr-2" /> Login
+                        </Link>
+                    )}
 
                 </div>
 
@@ -157,9 +172,22 @@ const Navbar = () => {
                                 mobile
                             />
 
-                            <button onClick={handleLogout} className="flex items-center text-yellow-300 hover:text-yellow-500 transition-all duration-300 text-lg px-6 py-2 cursor-pointer">
-                                <FaArrowRight className="text-xl mr-2" /> Logout
-                            </button>
+                            {/* ✅ Conditionally Render Login or Logout Button for Mobile */}
+                            {authToken ? (
+                                <button
+                                    onClick={handleLogout}
+                                    className="flex items-center text-yellow-300 hover:text-yellow-500 transition-all duration-300 text-lg px-6 py-2 cursor-pointer"
+                                >
+                                    <FaArrowRight className="text-xl mr-2" /> Logout
+                                </button>
+                            ) : (
+                                <Link
+                                    to="/auth"
+                                    className="flex items-center text-yellow-300 hover:text-yellow-500 transition-all duration-300 text-lg px-6 py-2"
+                                >
+                                    <FaArrowRight className="text-xl mr-2" /> Login
+                                </Link>
+                            )}
                         </div>
                     </motion.div>
                 )}

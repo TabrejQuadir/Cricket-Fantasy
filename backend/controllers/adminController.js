@@ -12,9 +12,17 @@ exports.registerAdmin = async (req, res) => {
     const { username, email, whatsappNumber, password } = req.body;
 
     try {
-        // ✅ Check if admin already exists
-        const existingAdmin = await User.findOne({ email });
-        if (existingAdmin) return res.status(400).json({ message: "Admin already exists" });
+        // ✅ Check if any admin already exists
+        const existingAdmin = await User.findOne({ role: "admin" });
+        if (existingAdmin) {
+            return res.status(400).json({ message: "An admin already exists. Only one admin is allowed." });
+        }
+
+        // ✅ Check if email already exists (for other users, if applicable)
+        const existingEmail = await User.findOne({ email });
+        if (existingEmail) {
+            return res.status(400).json({ message: "Email already exists." });
+        }
 
         if (!/^\d{10}$/.test(whatsappNumber)) {
             return res.status(400).json({ message: "Invalid WhatsApp number. Must be 10 digits." });
@@ -37,7 +45,7 @@ exports.registerAdmin = async (req, res) => {
     }
 };
 
-// 📌 Admin Login
+// 📌 Admin Login (remains the same)
 exports.loginAdmin = async (req, res) => {
     const { email, password } = req.body;
 
