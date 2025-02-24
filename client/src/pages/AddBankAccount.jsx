@@ -223,7 +223,7 @@ const BankAccounts = () => {
             <input type="text" name="accountHolder" value={bankDetails.accountHolder} onChange={handleInputChange} placeholder="Account Holder" className="w-full p-3 border border-gray-300 rounded-lg mb-4" required />
             <input type="text" name="accountNumber" value={bankDetails.accountNumber} onChange={handleInputChange} placeholder="Account Number" className="w-full p-3 border border-gray-300 rounded-lg mb-4" required />
             <input type="text" name="branchCode" value={bankDetails.branchCode} onChange={handleInputChange} placeholder="Branch Code" className="w-full p-3 border border-gray-300 rounded-lg mb-4" required />
-            <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg">{isEditing ? "Save Changes" : "Add Bank Account"}</button>
+            <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg cursor-pointer">{isEditing ? "Save Changes" : "Add Bank Account"}</button>
           </form>
         </div>
       </div>

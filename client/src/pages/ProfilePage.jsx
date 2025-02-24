@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { FaUser, FaEnvelope, FaCrown, FaSignOutAlt, FaClock, FaMoneyBillWave, FaFileContract } from "react-icons/fa";
+import { FaIdCard, FaEnvelope, FaCrown, FaSignOutAlt, FaClock, FaMoneyBillWave } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -53,8 +53,12 @@ export default function ProfilePage() {
                         {user.username || "Guest User"}
                     </h2>
                     <p className="text-gray-300 flex items-center space-x-2">
+                        <FaIdCard className="text-yellow-300" />
+                        <span>Id: {user._id}</span>
+                    </p>
+                    <p className="text-gray-300 flex items-center space-x-2">
                         <FaEnvelope className="text-yellow-300" />
-                        <span>{user.email}</span>
+                        <span>Email: {user.email}</span>
                     </p>
                     <p className="text-gray-300 flex items-center space-x-2">
                         <FaCrown className="text-yellow-300" />
@@ -78,7 +82,7 @@ export default function ProfilePage() {
                 </div>
             </motion.div>
 
-            {/* ✅ Actions - Deposit & Withdraw */}
+            {/* ✅ Actions - Deposit, Withdraw, and Other Actions */}
             <div className="mt-6 flex flex-col md:flex-row w-full max-w-5xl space-y-4 md:space-y-0 md:space-x-4">
                 <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -96,6 +100,37 @@ export default function ProfilePage() {
                     className="w-full py-3 text-lg font-semibold rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
                 >
                     Withdraw 💵
+                </motion.button>
+
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/add-bank-account")}
+                    className="w-full py-3 text-lg font-semibold rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                >
+                    Add Bank Account 🏦
+                </motion.button>
+
+            </div>
+
+            {/* ✅ Additional Actions - Deposit History, Withdraw History, Add Bank Account */}
+            <div className="mt-4 flex flex-col md:flex-row w-full max-w-5xl space-y-4 md:space-y-0 md:space-x-4">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/deposit-history")}
+                    className="w-full py-3 text-lg font-semibold rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-700 text-black shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                >
+                    Deposit History 📜
+                </motion.button>
+
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/withdraw-history")}
+                    className="w-full py-3 text-lg font-semibold rounded-xl bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                >
+                    Withdraw History 📑
                 </motion.button>
 
                 <motion.button

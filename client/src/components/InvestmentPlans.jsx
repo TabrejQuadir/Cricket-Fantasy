@@ -87,7 +87,7 @@ const InvestmentPlans = () => {
 
   return (
     <div className="investment-plans">
-      <h2 className="text-center text-4xl font-bold mb-8 text-black">Investment Plans</h2>
+      <h2 className="text-center text-4xl font-bold mb-8 text-black">Monthly Subscription plans</h2>
 
       {/* Active Plan or Pending Plan Section */}
       {activePlan ? (

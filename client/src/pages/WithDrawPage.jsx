@@ -42,14 +42,17 @@ const WithDrawPage = () => {
 
   // ✅ Auto-hide error and success messages
   useEffect(() => {
-    if (successMessage || errorMessage) {
+    if (successMessage || (errorMessage && errorMessage !== "No default bank account found. Please set one first.")) {
       const timer = setTimeout(() => {
         setSuccessMessage("");
-        setErrorMessage("");
+        if (errorMessage !== "No default bank account found. Please set one first.") {
+          setErrorMessage("");
+        }
       }, 3000);
       return () => clearTimeout(timer);
     }
   }, [successMessage, errorMessage]);
+
 
   // ✅ Handle Withdrawal Request
   const handleWithdraw = async () => {
@@ -181,10 +184,21 @@ const WithDrawPage = () => {
           </p>
         )}
         {errorMessage && (
-          <p className="mt-4 flex items-center justify-center text-red-400">
-            <FaExclamationTriangle className="mr-2" /> {errorMessage}
-          </p>
+          <div className="mt-4 text-center">
+            <p className="flex items-center justify-center text-red-400">
+              <FaExclamationTriangle className="mr-2" /> {errorMessage}
+            </p>
+            {errorMessage === "No default bank account found. Please set one first." && (
+              <Link
+                to="/add-bank-account"
+                className="mt-2 inline-block px-4 py-2 bg-yellow-500 text-black font-semibold rounded-lg shadow hover:bg-yellow-600 transition-all duration-300"
+              >
+                ➕ Add Bank Account
+              </Link>
+            )}
+          </div>
         )}
+
       </div>
     </div>
   );

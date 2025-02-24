@@ -43,7 +43,7 @@ export default function Nav() {
                         {isAuthenticated && (
                             <>
                                 <NavButton icon={FaTrophy} tooltip="Order History" onClick={() => navigate('/order-history')} />
-                                <NavButton icon={FaWallet} tooltip="Wallet" onClick={() => setDropdownOpen(false)} />
+                                {/* <NavButton icon={FaWallet} tooltip="Wallet" onClick={() => setDropdownOpen(false)} /> */}
                             </>
                         )}
                         <NavButton icon={FaInfoCircle} tooltip="About" onClick={() => navigate('/about')} />
