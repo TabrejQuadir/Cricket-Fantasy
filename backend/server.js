@@ -24,7 +24,9 @@ app.use(
             "http://localhost:5174",
             "https://backend.prepaidtaskskill.in",
             "https://surewin11.vercel.app",
-            "https://adminsurewin11.vercel.app"
+            "https://adminsurewin11.vercel.app",
+            "https://surewin11.in",
+            "https://adminskill.top"
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,

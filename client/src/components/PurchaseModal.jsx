@@ -178,6 +178,10 @@ const PurchaseModal = ({ isOpen, onClose, plan }) => {
               onChange={handleScreenshotChange}
               className="w-full p-3 bg-gray-800/40 border border-yellow-500/40 text-white rounded-xl focus:ring-2 focus:ring-yellow-500"
             />
+            {/* 🔴 Alert for UTR visibility */}
+            <p className="text-red-500 text-sm mt-2 font-semibold">
+              ⚠️ UTR number must be visible in the screenshot, or the payment will be rejected.
+            </p>
           </div>
         )}
 
