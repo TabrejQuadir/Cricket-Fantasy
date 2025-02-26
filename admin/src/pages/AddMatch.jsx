@@ -210,8 +210,8 @@ const AddMatch = () => {
 
                     {/* Minimum and Maximum Winning in a single row */}
                     <div className="col-span-1 md:col-span-2 flex gap-6">
-                        <input type="number" name="minWinning" placeholder="Minimum Winning" className="w-1/2 bg-transparent focus:outline-none text-white placeholder-gray-400 border border-yellow-500/50 p-3 rounded-xl" value={matchDetails.minWinning} onChange={handleChange} />
-                        <input type="number" name="maxWinning" placeholder="Maximum Winning" className="w-1/2 bg-transparent focus:outline-none text-white placeholder-gray-400 border border-yellow-500/50 p-3 rounded-xl" value={matchDetails.maxWinning} onChange={handleChange} />
+                        <input type="number" name="minWinning" placeholder="Minimum Winning (3)" className="w-1/2 bg-transparent focus:outline-none text-white placeholder-gray-400 border border-yellow-500/50 p-3 rounded-xl" value={matchDetails.minWinning} onChange={handleChange} />
+                        <input type="number" name="maxWinning" placeholder="Maximum Winning (6)" className="w-1/2 bg-transparent focus:outline-none text-white placeholder-gray-400 border border-yellow-500/50 p-3 rounded-xl" value={matchDetails.maxWinning} onChange={handleChange} />
                     </div>
 
                     <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }} type="submit" className="w-full cursor-pointer col-span-1 md:col-span-2 flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-700 text-black font-semibold shadow-lg hover:shadow-xl transition-all">

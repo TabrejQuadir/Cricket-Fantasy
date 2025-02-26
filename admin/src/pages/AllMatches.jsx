@@ -82,17 +82,15 @@ const AllMatches = () => {
                 <div className="flex justify-center mb-6">
                     <button
                         onClick={() => handleFilterChange("Upcoming")}
-                        className={`px-6 py-2 rounded-xl mr-4 text-white cursor-pointer ${
-                            matchStatus === "Upcoming" ? "bg-yellow-600" : "bg-gray-700"
-                        }`}
+                        className={`px-6 py-2 rounded-xl mr-4 text-white cursor-pointer ${matchStatus === "Upcoming" ? "bg-yellow-600" : "bg-gray-700"
+                            }`}
                     >
                         Upcoming Matches
                     </button>
                     <button
                         onClick={() => handleFilterChange("Completed")}
-                        className={`px-6 py-2 rounded-xl text-white cursor-pointer ${
-                            matchStatus === "Completed" ? "bg-yellow-600" : "bg-gray-700"
-                        }`}
+                        className={`px-6 py-2 rounded-xl text-white cursor-pointer ${matchStatus === "Completed" ? "bg-yellow-600" : "bg-gray-700"
+                            }`}
                     >
                         Completed Matches
                     </button>
@@ -132,7 +130,6 @@ const AllMatches = () => {
                                 <th className="p-3 border border-yellow-500/40">Min - Max Winning</th>
                                 <th className="p-3 border border-yellow-500/40">Final Winning</th>
                                 <th className="p-3 border border-yellow-500/40">Status</th>
-                                <th className="p-3 border border-yellow-500/40">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,15 +145,10 @@ const AllMatches = () => {
                                             {match.matchTime}
                                         </td>
                                         <td className="p-3">₹{match.pricePerTeam}</td>
-                                        <td className="p-3">₹{match.minWinning} - ₹{match.maxWinning}</td>
-                                        <td className="p-3">{match.finalWinning ? `₹${match.finalWinning}` : "Not Set"}</td>
-                                        <td className="p-3">{match.status === "Completed" ? <FaCheckCircle className="text-green-400" /> : <FaTimes className="text-red-400" />}</td>
-                                        <td className="p-3">
-                                            {match.status === "Upcoming" && (
-                                                <button onClick={() => handleMarkCompleted(match._id)} className="px-4 py-2 bg-yellow-500 text-black rounded-xl">
-                                                    Mark Completed
-                                                </button>
-                                            )}
+                                        <td className="p-3">{match.minWinning}x - {match.maxWinning}x</td>
+                                        <td className="p-3">{match.finalWinning ? `${match.finalWinning}x` : "Not Set"}</td>
+                                        <td className={`p-3 font-bold ${match.status === "Upcoming" ? "text-red-500" : "text-green-500"}`}>
+                                            {match.status === "Upcoming" ? "Upcoming" : "Completed"}
                                         </td>
                                     </tr>
                                 ))

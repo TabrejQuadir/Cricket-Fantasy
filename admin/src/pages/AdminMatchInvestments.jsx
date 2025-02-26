@@ -17,7 +17,7 @@ const AdminMatchInvestments = () => {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/matches/upcoming-matches", {
+        const response = await axios.get("https://backend.prepaidtaskskill.in/api/matches/upcoming-matches", {
           headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
         });
         setMatches(response.data);
@@ -32,7 +32,7 @@ const AdminMatchInvestments = () => {
   // ✅ Fetch investments for selected match
   useEffect(() => {
     if (!selectedMatchId) return;
-    
+
     const fetchInvestments = async () => {
       setLoading(true);
       try {
@@ -41,7 +41,7 @@ const AdminMatchInvestments = () => {
         });
 
         setInvestments(response.data.investments);
-        
+
         // Calculate total investment
         const total = response.data.investments.reduce((sum, inv) => sum + inv.amount, 0);
         setTotalInvestment(total);

@@ -54,7 +54,7 @@ const AdminMultiplier = () => {
                     <option value="">-- Select a Match --</option>
                     {matches.map((match) => (
                         <option key={match._id} value={match._id}>
-                            {match.team1} vs {match.team2} ({match.matchTime})
+                            {match.team1} vs {match.team2} {new Date(match.matchDate).toDateString()} ({match.matchTime})
                         </option>
                     ))}
                 </select>
@@ -70,7 +70,7 @@ const AdminMultiplier = () => {
                 />
             </div>
             <button 
-                className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-md transition duration-200 ease-in-out disabled:bg-gray-500"
+                className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-md transition duration-200 ease-in-out disabled:bg-gray-500 cursor-pointer"
                 onClick={handleApplyMultiplier} 
                 disabled={loading}
             >

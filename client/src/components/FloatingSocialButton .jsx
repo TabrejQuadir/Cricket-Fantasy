@@ -4,7 +4,7 @@ import { FaWhatsapp, FaTelegram, FaShareAlt } from "react-icons/fa";
 import axios from "axios";
 
 const FloatingSocialButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [whatsappLink, setWhatsappLink] = useState("");
   const [telegramLink, setTelegramLink] = useState("");
 

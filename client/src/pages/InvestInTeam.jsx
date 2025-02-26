@@ -8,7 +8,8 @@ const InvestInTeam = () => {
   const { matchId } = useParams();
   const { user, setUser } = useAuth();
   const [match, setMatch] = useState(null);
-  const [amount, setAmount] = useState(""); 
+  const [amount, setAmount] = useState("");
+  const [potentialEarnings, setPotentialEarnings] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -43,6 +44,15 @@ const InvestInTeam = () => {
       setDaysLeft(Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
     }
   }, [user]);
+
+  // ✅ Calculate potential earnings when amount changes
+  useEffect(() => {
+    if (match?.minWinning && amount > 0) {
+      setPotentialEarnings(amount * match.minWinning);
+    } else {
+      setPotentialEarnings(0);
+    }
+  }, [amount, match]);
 
   // ✅ Handle Investment
   const handleConfirmSelection = async () => {
@@ -122,70 +132,62 @@ const InvestInTeam = () => {
   );
 
   return (
-    <div className="max-w-4xl mx-auto mt-24 p-8 bg-black/40 backdrop-blur-3xl border border-yellow-500/40 rounded-3xl shadow-[0px_0px_50px_rgba(253,199,0,0.5)] text-white relative">
-      {/* User Balance & Expiry Date */}
-      <div className="absolute top-0 left-0 right-0 flex justify-between p-4 text-gray-300 text-sm font-semibold">
-        <span>💰 Balance: ₹{user.balance.toFixed(2)}</span>
-        <span>📅 Plan Expires in: {daysLeft > 0 ? `${daysLeft} Days` : "Expired"}</span>
-      </div>
-
-      <h2 className="text-4xl font-extrabold text-yellow-400 mb-6 text-center tracking-wide">🏏 Invest in Match</h2>
-
-      <div className="text-center mb-6">
-        <p className="text-gray-300 text-lg">
-          Match: <span className="text-yellow-400 font-bold">{match.team1} vs {match.team2}</span>
-        </p>
-        <p className="text-gray-400">
-          📅 {new Date(match.matchDate).toLocaleDateString()} | ⏰ {match.matchTime}
-        </p>
-        <p className="text-white">
-          Minimum Investment: <span className="text-yellow-500 font-bold">₹{match.pricePerTeam}</span>
-        </p>
-      </div>
-
-      {/* Winning Probability */}
-      <div className="text-center text-md text-gray-400 mb-6">
-        Winning Probability:
-        <span className="text-[#FDC700] font-bold ml-1">
-          {match?.minWinning ? `${match.minWinning}x` : "N/A"} - {match?.maxWinning ? `${match.maxWinning}x` : "N/A"}
-        </span>
-      </div>
-
-      {/* Amount Input */}
-      <div className="mt-6">
-        <label className="text-sm font-semibold text-gray-300">Investment Amount (₹)</label>
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="w-full p-3 bg-gray-900/40 border border-yellow-500/40 text-white rounded-xl focus:ring-2 focus:ring-yellow-500 placeholder-gray-400"
-          placeholder="Enter amount"
-        />
-      </div>
-
-      {/* Confirm Button */}
-      <div className="mt-8 flex justify-center">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleConfirmSelection}
-          className="px-8 py-3 text-lg font-semibold rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-700 text-black shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
-        >
-          Confirm Investment 🚀
-        </motion.button>
-      </div>
-
-      {/* Success & Error Messages */}
-      {error && (
-        <div className="absolute bottom-4 left-0 right-0 bg-red-500 text-white text-center py-2 rounded-lg shadow-lg">
-          {error}
+    <div className="flex justify-center items-center min-h-screen px-4 sm:px-6 bg-black text-white ">
+      <div className="max-w-4xl w-full p-6 sm:p-10 bg-black/40 backdrop-blur-xl border border-yellow-500/40 shadow-lg
+      shadow-yellow-500/50 rounded-lg space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between text-gray-300 text-sm font-semibold">
+          <span>💰 Balance: ₹{user.balance.toFixed(2)}</span>
+          <span>📅 Plan Expires in: {daysLeft > 0 ? `${daysLeft} Days` : "Expired"}</span>
         </div>
-      )}
-      {success && (
-        <div className="absolute bottom-4 left-0 right-0 bg-green-500 text-white text-center py-2 rounded-lg shadow-lg">
-          {success}
+
+        <h2 className="text-3xl sm:text-4xl font-bold text-yellow-400 text-center">🏏 Invest in Match</h2>
+
+        <div className="text-center">
+          <p className="text-gray-300 text-lg">Match: <span className="text-yellow-400 font-bold">{match?.team1} vs {match?.team2}</span></p>
+          <p className="text-gray-400">📅 {new Date(match?.matchDate).toLocaleDateString()} | ⏰ {match?.matchTime}</p>
+          <p className="text-white">Minimum Investment: <span className="text-yellow-500 font-bold">₹{match?.pricePerTeam}</span></p>
         </div>
-      )}
+
+        {/* Winning Probability */}
+
+        <div className="text-center text-md text-gray-400 mb-6">
+
+          Winning Probability:
+
+          <span className="text-[#FDC700] font-bold ml-1">
+
+            {match?.minWinning ? `${match.minWinning}x` : "N/A"} - {match?.maxWinning ? `${match.maxWinning}x` : "N/A"}
+
+          </span>
+
+        </div>
+
+        <div className="mt-4">
+          <label className="text-sm font-semibold text-gray-300">Investment Amount (₹)</label>
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full p-3 bg-gray-900/40 border border-yellow-500/40 text-white rounded-xl focus:ring-2 focus:ring-yellow-500 placeholder-gray-400"
+            placeholder="Enter amount"
+          />
+        </div>
+
+        {potentialEarnings > 0 && (
+          <p className="text-center text-lg text-yellow-400">💰 Potential Earnings: <span className="font-bold">₹{potentialEarnings.toFixed(2)}</span></p>
+        )}
+
+        <div className="mt-6 flex justify-center">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleConfirmSelection}
+            className="px-6 py-3 w-full sm:w-auto text-lg font-semibold rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-700 text-black shadow-md hover:shadow-lg transition-all"
+          >
+            Confirm Investment 🚀
+          </motion.button>
+        </div>
+      </div>
     </div>
   );
 };
