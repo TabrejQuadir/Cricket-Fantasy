@@ -159,3 +159,26 @@ html, body {
 .bg-glass:hover {
   box-shadow: 0 8px 20px rgba(255, 223, 0, 0.3);
 }
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background: #111; /* Dark background */
+  border-radius: 10px;
+}
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ffcc00, #ff6600); /* Cricket-themed gradient */
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+/* Scrollbar Handle on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ff6600, #ff0000); /* Smooth color change */
+}

@@ -7,6 +7,7 @@ import Section3 from "../components/Section3";
 import WhyChooseUs from "../components/WhyChooseUs";
 import InvestmentPlans from "../components/InvestmentPlans";
 import LimitedTimeOffer from "../components/LimitedTimeOffer ";
+import InvestmentProcess from "../components/InvestmentProcess";
 
 export default function HomePage() {
     const bannerRef = useRef(null);
@@ -53,6 +54,7 @@ export default function HomePage() {
                 <ShopCategory />
 
                 <InvestmentPlans />
+                <InvestmentProcess/>
                 <div className="mb-16 my-6">
                     <h2 className="text-2xl font-bold text-white absolute">Upcoming Matches</h2>
                 </div>

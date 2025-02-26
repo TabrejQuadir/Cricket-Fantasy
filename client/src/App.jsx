@@ -15,6 +15,7 @@ import DepositHistory from "./pages/DepositHistory";
 import WithDrawPage from "./pages/WithDrawPage";
 import AddBankAccount from "./pages/AddBankAccount";
 import WithdrawHistory from "./pages/WithdrawHistory";
+import SnakeCursor from "./components/SnakeCursor";
 
 export default function App() {
     const [loadingComplete, setLoadingComplete] = useState(false);
@@ -40,6 +41,7 @@ export default function App() {
             ) : (
                 <>
                     {/* ✅ Show Navbar only after loading completes */}
+                    <SnakeCursor/>
                     <Nav navbarVisible={loadingComplete} />
                     <Routes>
                         <Route path="/" element={<HomePage />} />
