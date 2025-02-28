@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const SnakeCursor = () => {
-  const numSegments = 18;
-  const segmentSize = 14;
+  const numSegments = 70;
+  const segmentSize = 16;
   const dampening = 0.25;
-  const hitBoost = 0.6;
+  const hitBoost = 1.6;
 
   const [isMobile, setIsMobile] = useState(false);
   const [segments, setSegments] = useState(
@@ -58,24 +58,30 @@ const SnakeCursor = () => {
       setSegments((prevSegments) => {
         const newSegments = [...prevSegments];
         const boostFactor = isHit ? hitBoost : dampening;
-
-        newSegments[0] = {
-          x: gsap.utils.interpolate(newSegments[0].x, mousePos.current.x, boostFactor),
-          y: gsap.utils.interpolate(newSegments[0].y, mousePos.current.y, boostFactor),
-        };
-
+        
+        // Ensure the first segment follows the mouse smoothly
+        newSegments[0].x += (mousePos.current.x - newSegments[0].x) * boostFactor;
+        newSegments[0].y += (mousePos.current.y - newSegments[0].y) * boostFactor;
+    
+        // Keep segments evenly spaced
         for (let i = 1; i < numSegments; i++) {
-          newSegments[i] = {
-            x: gsap.utils.interpolate(newSegments[i].x, newSegments[i - 1].x, dampening),
-            y: gsap.utils.interpolate(newSegments[i].y, newSegments[i - 1].y, dampening),
-          };
+          const dx = newSegments[i - 1].x - newSegments[i].x;
+          const dy = newSegments[i - 1].y - newSegments[i].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+    
+          // Maintain spacing between segments
+          if (distance > segmentSize * 0.8) { // Prevent shrinking too much
+            newSegments[i].x += dx * dampening;
+            newSegments[i].y += dy * dampening;
+          }
         }
-
+    
         return newSegments;
       });
-
+    
       requestAnimationFrame(animate);
     };
+    
 
     animate();
 

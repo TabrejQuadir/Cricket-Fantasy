@@ -15,7 +15,7 @@ cron.schedule("0 0 * * *", async () => {
         });
 
         for (let user of users) {
-            user.investmentPlan = null; // Reset investment plan
+            user.investmentPlan.status = "Expired"; // ✅ Update status to "Expired"
             await user.save();
             console.log(`✅ Investment plan expired for user: ${user.username}`);
         }

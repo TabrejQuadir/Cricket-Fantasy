@@ -35,11 +35,6 @@ app.use(
 
 app.use(express.json()); // ✅ Parse JSON request body
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use((req, res, next) => {
-    console.log(`🔹 Incoming Request: ${req.method} ${req.url}`);
-    console.log("🔹 Request Body:", req.body);
-    next();
-});
 
 
 // ✅ MongoDB connection

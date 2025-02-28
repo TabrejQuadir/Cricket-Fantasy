@@ -1,22 +1,22 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaMoneyBillWave, FaTrophy, FaRegClock } from "react-icons/fa";
+import { FaMoneyBillWave, FaRegClock, FaTrophy } from "react-icons/fa";
 
 const steps = [
     {
         icon: <FaMoneyBillWave className="text-green-400 text-4xl sm:text-5xl md:text-6xl" />,
-        title: "Subscribe & Invest",
-        description: "Choose a subscription plan, invest in upcoming matches effortlessly.",
+        title: "Subscribe & Get Free Trial",
+        description: "Choose a subscription plan and receive a free trial to invest in a match for free!",
     },
     {
         icon: <FaRegClock className="text-yellow-400 text-4xl sm:text-5xl md:text-6xl" />,
-        title: "Wait for Results",
-        description: "Sit back and watch as your investments play out based on expert strategies.",
+        title: "Invest & Wait for Results",
+        description: "Continue investing in upcoming matches and let expert strategies work for you.",
     },
     {
         icon: <FaTrophy className="text-blue-400 text-4xl sm:text-5xl md:text-6xl" />,
         title: "Earn & Withdraw",
-        description: "Get your returns instantly credited and withdraw your earnings anytime!",
+        description: "Withdraw your winnings anytime and keep growing your earnings effortlessly!",
     },
 ];
 
@@ -49,8 +49,7 @@ const InvestmentProcess = () => {
                     >
                         {/* Floating Neon Circle with Icon */}
                         <motion.div
-                            className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center rounded-full bg-opacity-30 backdrop-blur-xl border border-yellow-300 shadow-2xl
-                        "
+                            className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center rounded-full bg-opacity-30 backdrop-blur-xl border border-yellow-300 shadow-2xl"
                             whileHover={{ scale: 0.95, rotate: 5 }}
                         >
                             {step.icon}
@@ -67,7 +66,7 @@ const InvestmentProcess = () => {
                         {/* Connecting Glowing Line */}
                         {index !== steps.length - 1 && (
                             <motion.div
-                                className="absolute top-10 sm:top-12 left-full w-12 sm:w-20 md:w-24 h-[2px] bg-yellow-400 shadow-[0_0_15px_rgba(255,215,0,0.8)] "
+                                className="absolute top-10 sm:top-12 left-full w-12 sm:w-20 md:w-24 h-[2px] bg-yellow-400 shadow-[0_0_15px_rgba(255,215,0,0.8)]"
                                 initial={{ width: 0 }}
                                 whileInView={{ width: "6rem" }}
                                 transition={{ duration: 0.5, delay: index * 0.3 }}

@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
     qrCode: { type: String, default: "" },
     investmentPlan: { type: investmentPlanSchema, default: null },
     matchInvestments: [matchInvestmentSchema], 
+    firstTimeFreeInvestment: { type: Boolean, default: true }, 
     createdAt: { type: Date, default: Date.now }
 });
 

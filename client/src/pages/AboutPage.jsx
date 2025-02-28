@@ -5,39 +5,39 @@ import { useState } from "react";
 export default function AboutPage() {
 
     const testimonials = [
-        { name: "Rahul", review: "SureWin11 makes investing in cricket effortless! The returns are truly impressive." },
-        { name: "Amit", review: "The expert team manages everything perfectly. Great support and trusted platform!" },
-        { name: "Sneha", review: "I never thought I could earn so much from cricket investments. Absolutely amazing!" },
-        { name: "Vikram", review: "The VIP Club is a game-changer! Exclusive insights and high returns make it worth it." },
-        { name: "Pooja", review: "Fastest withdrawals ever! My earnings were in my account within hours. 100% reliable!" },
-        { name: "Ankit", review: "SureWin11’s expert strategies do all the hard work for me. Best investment decision!" },
-        { name: "Divya", review: "Their customer support is fantastic. They truly care about investor satisfaction." },
-        { name: "Suraj", review: "At first, I was unsure, but now I earn consistently without any hassle!" },
-        { name: "Meera", review: "Transparency is key, and SureWin11 delivers! I always know where my money is going." },
-        { name: "Rohan", review: "Investing in cricket has never been this rewarding. SureWin11 is a must-try!" },
+        { name: "Rahul", review: "SureWin11 makes cricket investments effortless! My returns have exceeded expectations!" },
+        { name: "Amit", review: "The expert team ensures smooth investments. Reliable support and a trustworthy platform!" },
+        { name: "Sneha", review: "I never imagined earning so much from cricket investments. SureWin11 is a game-changer!" },
+        { name: "Vikram", review: "Joining the VIP Club was the best decision! Exclusive insights and high returns make it worth it." },
+        { name: "Pooja", review: "Fastest withdrawals ever! My profits were credited within hours. 100% trustworthy!" },
+        { name: "Ankit", review: "SureWin11’s expert strategies handle everything for me. Best passive income source!" },
+        { name: "Divya", review: "Exceptional customer support! The team genuinely cares about investor success and satisfaction." },
+        { name: "Suraj", review: "At first, I was skeptical, but now I earn consistently with zero stress!" },
+        { name: "Meera", review: "Transparency is key, and SureWin11 delivers! I always have full visibility of my funds." },
+        { name: "Rohan", review: "Cricket investing has never been this easy and rewarding. SureWin11 is a must-try for everyone!" },
     ];
-    
+
 
     const faqs = [
         {
             question: "How does SureWin11 work?",
-            answer: "SureWin11 is an investment platform where you invest in cricket matches. Our experts create the best fantasy teams on your behalf and invest accordingly. Once the match ends, you receive returns based on your investment."
+            answer: "SureWin11 is an investment platform where our experts create winning fantasy cricket teams on your behalf. You invest in matches, and after the game, you receive returns based on the team's performance. Plus, your **first match investment is absolutely FREE!**"
         },
         {
             question: "Is my investment secure?",
-            answer: "Yes, absolutely! We follow a completely transparent and secure process. Your investment is managed by our experts, and all transactions are fully protected."
+            answer: "Absolutely! We ensure a fully transparent and secure process. Our expert team carefully manages your investment, and all transactions are safeguarded for your peace of mind."
         },
         {
             question: "How can I withdraw my earnings?",
-            answer: "You can place a withdrawal request anytime. Your earnings will be transferred to your bank account or UPI ID within 24 hours, with no hidden charges."
+            answer: "Withdrawing your earnings is quick and hassle-free! Simply place a withdrawal request, and your funds will be transferred to your bank account or UPI ID within 24 hours—no hidden fees!"
         },
         {
             question: "Do I need cricket knowledge to invest?",
-            answer: "Not at all! Our experts research and create the best fantasy teams on your behalf, ensuring you get maximum returns without needing any cricket expertise."
+            answer: "Not at all! Our professionals handle all the research and strategy, allowing you to earn without any prior cricket knowledge. Just invest and enjoy the returns!"
         },
         {
             question: "What payment methods do you accept?",
-            answer: "We support UPI, bank transfers, and all major payment gateways, making deposits and withdrawals easy and convenient for you."
+            answer: "We accept UPI, bank transfers, and all major payment gateways, ensuring seamless and secure transactions for deposits and withdrawals."
         }
     ];
 

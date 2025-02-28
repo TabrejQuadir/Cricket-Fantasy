@@ -76,19 +76,19 @@ export default function MatchCard() {
       },
     });
   };
-  
+
   const handleCreateTeam = (matchId) => {
     if (!user) {
-        handleOpenModal();
-        return;
+      handleOpenModal();
+      return;
     }
 
     if (user.investmentPlan && user.investmentPlan.status === "Active") {
-        navigate(`/create-team/${matchId}`);
+      navigate(`/create-team/${matchId}`);
     } else {
-        alert("❌ You need to have an active investment plan to invest.");
+      alert("❌ You need to have an active investment plan to invest.");
     }
-};
+  };
 
 
   const match = matches[currentMatchIndex]; // Get the current match based on the index
@@ -148,8 +148,12 @@ export default function MatchCard() {
 
           {/* Price Per Team */}
           <div className="text-center text-sm text-gray-400 mt-4 mb-4">
-            Price Per Team: <span className="text-[#FDC700] font-bold">{match?.pricePerTeam}</span>
+            Price Per Team:
+            <span className="text-[#FDC700] font-bold ml-1">
+              {user?.firstTimeFreeInvestment ? "FREE" : `₹${(match?.pricePerTeam / 2).toFixed(2)}`}
+            </span>
           </div>
+
 
           <div className="text-center text-sm text-gray-400 mt-4 mb-4">
             Winning Probability

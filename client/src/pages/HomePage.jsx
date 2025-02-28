@@ -54,10 +54,8 @@ export default function HomePage() {
                 <ShopCategory />
 
                 <InvestmentPlans />
-                <InvestmentProcess/>
-                <div className="mb-16 my-6">
-                    <h2 className="text-2xl font-bold text-white absolute">Upcoming Matches</h2>
-                </div>
+                <InvestmentProcess />
+            
                 <Section3 />
 
                 <WhyChooseUs />

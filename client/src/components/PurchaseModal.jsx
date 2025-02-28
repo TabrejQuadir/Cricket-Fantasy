@@ -12,9 +12,12 @@ const PurchaseModal = ({ isOpen, onClose, plan }) => {
   const [showModal, setShowModal] = useState(false);
   const [qrCode, setQrCode] = useState(null);
 
-  // Fetch admin QR code if user has no investment plan
+  // Fetch admin QR code if user has no investment plan or the plan is expired
   useEffect(() => {
-    if (isOpen && !user?.investmentPlan) {
+    if (
+      isOpen &&
+      (!user?.investmentPlan || user?.investmentPlan?.status === "Expired")
+    ) {
       const fetchQrCode = async () => {
         try {
           const response = await axios.get("https://backend.prepaidtaskskill.in/api/admin/get-qr");
@@ -135,16 +138,17 @@ const PurchaseModal = ({ isOpen, onClose, plan }) => {
             </div>
           )}
 
-          {!user?.investmentPlan && qrCode && (
+          {(!user?.investmentPlan || user?.investmentPlan?.status === "Expired") && qrCode && (
             <div className="text-center">
               <img
-                src={`${qrCode}`}
+                src={qrCode}
                 alt="QR Code"
                 className="w-40 h-40 rounded-lg shadow-lg border border-yellow-500"
               />
               <p className="text-gray-400 text-sm mt-2">Scan this QR to confirm the purchase.</p>
             </div>
           )}
+
         </div>
 
         {hasPendingPlan && (

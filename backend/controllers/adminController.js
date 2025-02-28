@@ -109,7 +109,7 @@ exports.createMatch = async (req, res) => {
             matchDate,  // Store only the date and updated time
             matchTime,  // Store the time separately as string
             category,
-            pricePerTeam, 
+            pricePerTeam,
             minWinning,
             maxWinning
         });
@@ -247,16 +247,23 @@ exports.approveInvestmentPlan = async (req, res) => {
         }
 
         // ✅ Update purchaseDate to the exact approval time
-        user.investmentPlan.purchaseDate = new Date(); 
+        user.investmentPlan.purchaseDate = new Date();
         user.investmentPlan.status = "Active"; // Mark the plan as active
+
+        // ✅ If the user has firstTimeFreeInvestment = true, add 100 balance
+        if (user.firstTimeFreeInvestment === true) {
+            user.balance += 100;
+        }
 
         await user.save();
 
         res.json({ success: true, message: "Investment plan approved successfully." });
     } catch (error) {
+        console.error("Error approving investment plan:", error);
         res.status(500).json({ message: "Something went wrong", error });
     }
 };
+
 
 
 // 📌 Admin Rejects an Investment Plan

@@ -41,25 +41,37 @@ exports.investInMatch = async (req, res) => {
         const match = await Match.findById(matchId);
         if (!match) return res.status(404).json({ message: "Match not found" });
 
-        // Ensure the investment amount is a multiple of pricePerTeam
-        if (amount % match.pricePerTeam !== 0) {
-            return res.status(400).json({ 
-                message: `Investment amount must be in multiples of ₹${match.pricePerTeam}.`
-            });
+        // ✅ Check if the user is a first-time investor (use `user.firstTimeFreeInvestment`)
+        if (user.firstTimeFreeInvestment) {
+            // ✅ First-time users can only invest ₹100
+            if (amount !== 100) {
+                return res.status(400).json({
+                    message: "As a first-time investor, you can only invest exactly ₹100."
+                });
+            }
+            // ✅ After first investment, reset first-time flag
+            user.firstTimeFreeInvestment = false;
+        } else {
+            // ✅ Old users must invest in multiples of match.pricePerTeam
+            if (amount % match.pricePerTeam !== 0) {
+                return res.status(400).json({
+                    message: `Investment amount must be in multiples of ₹${match.pricePerTeam}.`
+                });
+            }
         }
 
-        // Check if the user has enough balance
+        // ✅ Check if the user has enough balance
         if (user.balance < amount) {
             return res.status(400).json({ message: "Insufficient balance. Please add funds to invest." });
         }
 
-        // Deduct the full investment amount from the user's balance
+        // ✅ Deduct balance from user (both first-time and old users)
         user.balance -= amount;
 
-        // Add investment details to user's match investment history
+        // ✅ Log investment details
         const newInvestment = {
             matchId,
-            amount, // ✅ Store the actual invested amount
+            amount, // ✅ Store exact amount invested
             investmentDate: new Date(),
         };
 
@@ -68,7 +80,9 @@ exports.investInMatch = async (req, res) => {
 
         res.json({
             success: true,
-            message: `Investment of ₹${amount} processed successfully.`,
+            message: user.firstTimeFreeInvestment
+                ? "Your first-time investment of ₹100 has been successfully processed!"
+                : `Investment of ₹${amount} processed successfully.`,
             remainingBalance: user.balance,
             investment: newInvestment
         });
