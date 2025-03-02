@@ -150,7 +150,7 @@ export default function MatchCard() {
           <div className="text-center text-sm text-gray-400 mt-4 mb-4">
             Price Per Team:
             <span className="text-[#FDC700] font-bold ml-1">
-              {user?.firstTimeFreeInvestment ? "FREE" : `₹${(match?.pricePerTeam / 2).toFixed(2)}`}
+              {user?.firstTimeFreeInvestment ? "FREE" : `₹${(match?.pricePerTeam)}`}
             </span>
           </div>
 

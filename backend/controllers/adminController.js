@@ -85,7 +85,7 @@ exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find(
             { role: "user" }, // ✅ Filter: Only fetch users (exclude admins)
-            "username email whatsappNumber balance investmentPlan role createdAt" // ✅ Select specific fields (Exclude password)
+            "username email whatsappNumber balance investmentPlan role vipLevel isRestricted createdAt" // ✅ Select specific fields (Exclude password)
         );
 
         res.json(users);
@@ -96,7 +96,7 @@ exports.getAllUsers = async (req, res) => {
 
 // 📌 Admin Creates a Match
 exports.createMatch = async (req, res) => {
-    let { team1, team2, matchDate, matchTime, category, pricePerTeam, minWinning, maxWinning } = req.body;
+    let { team1, team2, matchDate, matchTime, category, pricePerTeam, minWinning, maxWinning, minTeamsPerUser } = req.body;
 
     try {
         // Ensure the matchDate is parsed as a valid Date object
@@ -111,7 +111,8 @@ exports.createMatch = async (req, res) => {
             category,
             pricePerTeam,
             minWinning,
-            maxWinning
+            maxWinning,
+            minTeamsPerUser
         });
 
         // Save the match
@@ -379,12 +380,10 @@ exports.searchUsers = async (req, res) => {
 // ✅ Apply Multiplier to a Match (Admin Only)
 exports.applyMultiplier = async (req, res) => {
     try {
-        console.log("🔹 Received Request Body:", req.body);
 
         const { matchId, multiplier } = req.body;
 
         if (!matchId || !multiplier || multiplier <= 0) {
-            console.log("❌ Invalid matchId or multiplier", matchId, multiplier);
             return res.status(400).json({ message: "Invalid matchId or multiplier" });
         }
 
@@ -394,32 +393,24 @@ exports.applyMultiplier = async (req, res) => {
         // ✅ Check if match exists
         const match = await Match.findById(matchObjectId);
         if (!match) {
-            console.log("❌ Match not found:", matchId);
             return res.status(404).json({ message: "Match not found" });
         }
-
-        console.log("✅ Match Found:", match);
 
         // ✅ If match is "Upcoming", update it to "Completed"
         if (match.status === "Upcoming") {
             match.status = "Completed";
         } else if (match.status === "Completed") {
-            console.log("❌ Multiplier Already Applied: Match is Completed");
             return res.status(400).json({ message: "Multiplier already applied. Match is completed." });
         }
 
         // ✅ Calculate finalWinning
         match.finalWinning = multiplier;
         await match.save();
-        console.log(`✅ Match ${matchId} finalWinning set to ${multiplier}`);
 
         // ✅ Find all users who invested in the match
         const users = await User.find({ "matchInvestments.matchId": matchObjectId });
 
-        console.log(`✅ Users Found: ${users.length}`);
-
         if (!users.length) {
-            console.log("❌ No Investments Found for this Match");
             return res.status(404).json({ message: "No investments found for this match" });
         }
 
@@ -436,8 +427,7 @@ exports.applyMultiplier = async (req, res) => {
             if (totalInvestment > 0) {
                 user.balance += totalInvestment * multiplier;
                 await user.save();
-                console.log(`✅ Updated User ${user._id} Balance: ${user.balance}`);
-            }
+             }
         }
 
         res.status(200).json({ message: `Multiplier applied successfully. Match finalWinning set to ${multiplier}.` });
@@ -501,3 +491,42 @@ exports.getMatchInvestments = async (req, res) => {
         res.status(500).json({ message: "Internal server error." });
     }
 };
+
+// 📌 Admin Gets All Restricted Users
+exports.getAllRestrictedUsers = async (req, res) => {
+    try {
+        const users = await User.find({ isRestricted: true });
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching restricted users", error });
+    }
+};
+
+// 📌 Admin Restricted Users
+exports.restrictUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+        user.isRestricted = true;
+        await user.save();
+        res.json({ message: "User restricted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error restricting user", error });
+    }
+};
+
+// 📌 Admin Unrestrict Users
+exports.unrestrictUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+        user.isRestricted = false;
+        await user.save();
+        res.json({ message: "User unrestricted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error unrestricting user", error });
+    }
+};
+

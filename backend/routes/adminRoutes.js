@@ -1,5 +1,5 @@
 const express = require("express");
-const { createMatch, markMatchAsCompleted, getPendingInvestments, getPendingPlans, approveInvestmentPlan, rejectInvestmentPlan,updateVipLevel, getAdminUserInvestmentHistory, getAllUsers, registerAdmin, loginAdmin, uploadQr, getQrCode, deleteQrCode, getSingleUser, searchUsers, applyMultiplier, getMatchInvestments } = require("../controllers/adminController");
+const { createMatch, markMatchAsCompleted, getPendingInvestments, getPendingPlans, approveInvestmentPlan, rejectInvestmentPlan,updateVipLevel, getAdminUserInvestmentHistory, getAllUsers, registerAdmin, loginAdmin, uploadQr, getQrCode, deleteQrCode, getSingleUser, searchUsers, applyMultiplier, getMatchInvestments, getAllRestrictedUsers, restrictUser, unrestrictUser } = require("../controllers/adminController");
 const { isAdmin } = require("../middilware/authMiddilware");
 const { uploadQrCode  } = require("../middilware/multerMiddilware"); // Import QR code upload middleware
 const router = express.Router();
@@ -57,6 +57,13 @@ router.post("/apply-multiplier", isAdmin, applyMultiplier);
 // ✅ Fetch all investments in a match (Admin Only)
 router.get("/match-investments/:matchId", isAdmin, getMatchInvestments);
 
+// 📌 6️⃣ Admin Gets All Restricted Users
+router.get("/restricted-users", isAdmin, getAllRestrictedUsers);
 
+// 📌 7️⃣ Admin Restricts a User
+router.put("/restrict-user/:userId", isAdmin, restrictUser);
+
+// 📌 7️⃣ Admin Unrestricts a User
+router.put("/unrestrict-user/:userId", isAdmin, unrestrictUser);
 
 module.exports = router;

@@ -58,6 +58,7 @@ const Navbar = () => {
                         subItems={[
                             { to: "/users", icon: <FaList />, label: "All Users" },
                             { to: "/update-vip-level", icon: <FaPlus />, label: "Update VIP Level" },
+                            { to: "/update-restrict-user", icon: <FaPlus />, label: "Update Restrict User" },
                         ]}
                     />
 
@@ -136,6 +137,7 @@ const Navbar = () => {
                                 subItems={[
                                     { to: "/users", icon: <FaList />, label: "All Users" },
                                     { to: "/update-vip-level", icon: <FaPlus />, label: "Update VIP Level" },
+                                    { to: "/update-restrict-user", icon: <FaPlus />, label: "Update Restrict User" },
                                 ]}
                                 mobile
                             />
@@ -156,6 +158,7 @@ const Navbar = () => {
                                 subItems={[
                                     { to: "/add-balance", icon: <FaPlus />, label: "Add Balance" },
                                     { to: "/withdraw-balance", icon: <FaList />, label: "Withdraw Balance" },
+                                    { to: "/upload-qr", icon: <FaImage />, label: "Upload QR" },
                                 ]}
                                 mobile
                             />
@@ -168,6 +171,7 @@ const Navbar = () => {
                                     { to: "/match-investment-history", icon: <FaList />, label: "SingleUserMatchInvestmentHistory" },
                                     { to: "/admin/match-investments", icon: <FaList />, label: "SingleMatchUsersInvestmentHistory" },
                                     { to: "/deposit-verification", icon: <FaList />, label: "Deposit Verification" },
+
                                 ]}
                                 mobile
                             />
@@ -229,7 +233,8 @@ const DropdownItem = ({ icon, label, isActive, toggleDropdown, subItems, mobile 
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className={`${mobile ? "ml-6 space-y-2" : "absolute left-0 mt-2  bg-black/90 border border-yellow-500/40 rounded-lg shadow-lg z-50"}`}
+                    className={`${mobile ? "ml-6 space-y-2" : "absolute left-0 mt-2 bg-black/90 border border-yellow-500/40 rounded-lg shadow-lg z-50"}`}
+                    style={{ width: mobile ? 'auto' : 'max-content' }} // Add this line
                 >
                     {subItems.map((item, index) => (
                         <Link

@@ -15,6 +15,7 @@ const AddMatch = () => {
         pricePerTeam: "",
         minWinning: "",
         maxWinning: "",
+        minTeamsPerUser: "",
     });
 
     const [successMessage, setSuccessMessage] = useState("");
@@ -38,9 +39,9 @@ const AddMatch = () => {
     // Handle Form Submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { team1, team2, date, time, category, pricePerTeam, minWinning, maxWinning } = matchDetails;
+        const { team1, team2, date, time, category, pricePerTeam, minWinning, maxWinning, minTeamsPerUser } = matchDetails;
 
-        if (!team1 || !team2 || !date || !time || !pricePerTeam || !minWinning || !maxWinning) {
+        if (!team1 || !team2 || !date || !time || !pricePerTeam || !minWinning || !maxWinning || !minTeamsPerUser) {
             alert("Please fill in all fields.");
             return;
         }
@@ -55,6 +56,7 @@ const AddMatch = () => {
                 pricePerTeam,
                 minWinning,
                 maxWinning,
+                minTeamsPerUser,
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -72,6 +74,7 @@ const AddMatch = () => {
                     pricePerTeam: "",
                     minWinning: "",
                     maxWinning: "",
+                    minTeamsPerUser: "",
                 });
                 setTimeout(() => setSuccessMessage(""), 3000);
             }
@@ -203,6 +206,21 @@ const AddMatch = () => {
                                 placeholder="Enter Price Per Team"
                                 className="w-full bg-transparent focus:outline-none text-white placeholder-gray-400"
                                 value={matchDetails.pricePerTeam}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-span-1 md:col-span-2">
+                        <label className="block text-lg text-yellow-300 mb-2">Minimum Teams Per User</label>
+                        <div className="flex items-center bg-gray-900/50 p-3 rounded-xl border border-yellow-500/50">
+                            <FaUsers className="text-yellow-300 mr-3" />
+                            <input
+                                type="number"
+                                name="minTeamsPerUser"
+                                placeholder="Minimum Teams Per User"
+                                className="w-full bg-transparent focus:outline-none text-white placeholder-gray-400"
+                                value={matchDetails.minTeamsPerUser}
                                 onChange={handleChange}
                             />
                         </div>

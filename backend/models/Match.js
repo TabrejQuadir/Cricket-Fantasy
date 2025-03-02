@@ -9,6 +9,7 @@ const matchSchema = new mongoose.Schema({
     pricePerTeam: { type: Number, required: true }, // Price per team
     minWinning: { type: Number, required: true }, // Minimum winning amount
     maxWinning: { type: Number, required: true }, // Maximum winning amount
+    minTeamsPerUser: { type: Number, default: 1 }, // Minimum teams per user
     status: { type: String, enum: ["Upcoming", "Completed"], default: "Upcoming" }, // Match status
     finalWinning: { type: Number, default: null } // Final Winning after multiplier
 });

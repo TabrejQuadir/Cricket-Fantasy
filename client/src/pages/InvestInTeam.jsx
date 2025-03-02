@@ -145,6 +145,12 @@ const InvestInTeam = () => {
     </div>
   );
 
+  if (success) return (
+    <div className="h-screen flex justify-center items-center">
+      <p className="text-center text-green-500 font-semibold text-xl">{success}</p>
+    </div>
+  );
+
   return (
     <div className="flex justify-center items-center min-h-screen px-4 sm:px-6 bg-black text-white ">
       <div className="max-w-4xl w-full p-6 sm:p-10 bg-black/40 backdrop-blur-xl border border-yellow-500/40 shadow-lg shadow-yellow-500/50 rounded-lg space-y-6 relative">
@@ -163,14 +169,20 @@ const InvestInTeam = () => {
           </p>
           <p className="text-gray-400">📅 {new Date(match?.matchDate).toLocaleDateString()} | ⏰ {match?.matchTime}</p>
           <p className="text-white">
-            Minimum Investment: <span className="text-yellow-500 font-bold">₹{match?.pricePerTeam}</span>
+            Price Per Team: <span className="text-yellow-500 font-bold">₹{match?.pricePerTeam}</span>
+          </p>
+          <p className="text-white">
+            Minimum Investment:
+            <span className="text-yellow-500 font-bold">
+              ₹{match?.minTeamsPerUser ? match.pricePerTeam * match.minTeamsPerUser : match?.pricePerTeam}
+            </span>
           </p>
         </div>
 
         {/* Special Message for First-Time Users */}
         {isFirstTimeFree && (
           <div className="p-4 bg-gradient-to-r from-green-500 to-green-700 text-white text-center font-semibold rounded-xl shadow-md shadow-green-500/40 border border-green-300 animate-shine">
-            🎁 As a First-Time Investor, You Get ₹100 Free Investment! No Risk, Just Rewards!
+            🎁 As a First-Time Investor, You Can Invest ₹100 Only! No Risk, Just Rewards!
           </div>
         )}
 
@@ -188,13 +200,34 @@ const InvestInTeam = () => {
           <input
             type="number"
             value={isFirstTimeFree ? 100 : amount}
-            onChange={(e) => !isFirstTimeFree && setAmount(e.target.value)}
-            className={`w-full p-3 border border-yellow-500/40 text-white rounded-xl focus:ring-2 
-            ${isFirstTimeFree ? 'bg-gray-900/20 text-yellow-400 cursor-not-allowed' : 'bg-gray-900/40 focus:ring-yellow-500'} 
-            placeholder-gray-400`}
+            onChange={(e) => {
+              if (!isFirstTimeFree) {
+                const inputAmount = e.target.value === "" ? "" : parseInt(e.target.value, 10);
+                setAmount(inputAmount);
+                setError(""); // Clear error while typing
+              }
+            }}
+            onBlur={() => {
+              if (!isFirstTimeFree && amount) {
+                const minInvestment = match.pricePerTeam * match.minTeamsPerUser;
+
+                if (amount < minInvestment) {
+                  setError(`Minimum investment is ₹${minInvestment}`);
+                } else if (amount % match.pricePerTeam !== 0) {
+                  setError(`Investment should be a multiple of ₹${match.pricePerTeam}`);
+                } else {
+                  setError(""); // Clear error if valid
+                }
+              }
+            }}
+            className={`w-full p-3 border ${error ? "border-red-500" : "border-yellow-500/40"} 
+  text-white rounded-xl focus:ring-2 ${isFirstTimeFree ? "bg-gray-900/20 text-yellow-400 cursor-not-allowed" : "bg-gray-900/40 focus:ring-yellow-500"} 
+  placeholder-gray-400`}
             placeholder="Enter amount"
             disabled={isFirstTimeFree}
           />
+
+          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
 
         <p className="text-center text-lg text-yellow-400">
@@ -213,6 +246,7 @@ const InvestInTeam = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

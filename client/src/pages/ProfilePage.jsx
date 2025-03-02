@@ -51,6 +51,12 @@ export default function ProfilePage() {
                         <h2 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 text-transparent bg-clip-text">
                             {user.username || "Guest User"}
                         </h2>
+
+                        {/* Restriction Message */}
+
+                        {user.isRestricted && (
+                            <p className="text-red-500 text-lg font-semibold">⚠️ You are restricted ⚠️</p>
+                        )}
                         <p className="text-gray-300 text-sm md:text-base flex items-center space-x-2">
                             <FaIdCard className="text-yellow-300" />
                             <span>Id: {user._id}</span>
@@ -86,7 +92,11 @@ export default function ProfilePage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => navigate("/deposit")}
-                    className="w-full py-3 text-sm md:text-lg font-semibold rounded-xl bg-gradient-to-r from-green-500 to-green-700 text-black shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                    disabled={user?.isRestricted}
+                    className={`w-full py-3 text-sm md:text-lg font-semibold rounded-xl ${user?.isRestricted
+                        ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                        : "bg-gradient-to-r from-green-500 to-green-700 text-black shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                        }`}
                 >
                     Deposit 💰
                 </motion.button>
@@ -95,7 +105,11 @@ export default function ProfilePage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => navigate("/withdraw")}
-                    className="w-full py-3 text-sm md:text-lg font-semibold rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                    disabled={user?.isRestricted}
+                    className={`w-full py-3 text-sm md:text-lg font-semibold rounded-xl ${user?.isRestricted
+                        ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                        : "bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                        }`}
                 >
                     Withdraw 💵
                 </motion.button>
@@ -104,34 +118,52 @@ export default function ProfilePage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => navigate("/add-bank-account")}
-                    className="w-full py-3 text-sm md:text-lg font-semibold rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                    disabled={user?.isRestricted}
+                    className={`w-full py-3 text-sm md:text-lg font-semibold rounded-xl ${user?.isRestricted
+                        ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                        : "bg-gradient-to-r from-indigo-500 to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                        }`}
                 >
                     Add Bank Account 🏦
                 </motion.button>
 
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => navigate("/deposit-history")}
-                    className="w-full py-3 text-sm md:text-lg font-semibold rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-700 text-black shadow-lg hover:shadow-xl transition-all cursor-pointer"
-                >
-                    Deposit History 📜
-                </motion.button>
+                {user && (
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => navigate("/deposit-history")}
+                        disabled={user?.isRestricted || false}
+                        className={`w-full py-3 text-sm md:text-lg font-semibold rounded-xl ${user?.isRestricted
+                            ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                            : "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                            }`}
+                    >
+                        Deposit History 📜
+                    </motion.button>
+                )}
 
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => navigate("/withdraw-history")}
-                    className="w-full py-3 text-sm md:text-lg font-semibold rounded-xl bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
-                >
-                    Withdraw History 📑
-                </motion.button>
+                {user && (
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => navigate("/withdraw-history")}
+                        disabled={user?.isRestricted || false}
+                        className={`w-full py-3 text-sm md:text-lg font-semibold rounded-xl ${user?.isRestricted
+                            ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                            : "bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                            }`}
+                    >
+                        Withdraw History 📑
+                    </motion.button>
+                )}
 
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleLogout}
-                    className="w-full py-3 text-sm md:text-lg font-semibold rounded-xl bg-gradient-to-r from-red-600 to-red-800 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                    disabled={user?.isRestricted}
+                    className={`w-full py-3 text-sm md:text-lg font-semibold rounded-xl  bg-gradient-to-r from-red-600 to-red-800 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer
+                        `}
                 >
                     Logout 🚪
                 </motion.button>

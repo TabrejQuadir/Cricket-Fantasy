@@ -22,6 +22,11 @@ const createWithdrawalRequest = async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
+    // ✅ Check if the user is restricted
+    if (user.isRestricted) {
+      return res.status(403).json({ message: "Your account is restricted. You cannot withdraw funds." });
+    }
+
     // Check if balance is sufficient
     if (user.balance < amount) {
       return res.status(400).json({ message: "Insufficient balance." });
@@ -52,6 +57,7 @@ const createWithdrawalRequest = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
+
 
 // GET: Retrieve all withdrawal requests for the logged-in user
 const getUserWithdrawalRequests = async (req, res) => {

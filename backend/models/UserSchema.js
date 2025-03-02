@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
     investmentPlan: { type: investmentPlanSchema, default: null },
     matchInvestments: [matchInvestmentSchema], 
     firstTimeFreeInvestment: { type: Boolean, default: true }, 
+    isRestricted: { type: Boolean, default: false }, 
     createdAt: { type: Date, default: Date.now }
 });
 

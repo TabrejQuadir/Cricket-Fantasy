@@ -18,6 +18,7 @@ import WithDrawBalance from "./pages/WithDrawBalance";
 import AdminMultiplier from "./pages/AdminMultiplier";
 import AdminMatchInvestments from "./pages/AdminMatchInvestments";
 import UpdateVipLevel from "./pages/UpdateVipLevel";
+import UpdateRestrictUser from "./pages/UpdateRestrictUser";
 
 const App = () => {
     return (
@@ -49,6 +50,7 @@ const App = () => {
                         <Route path="/withdraw-balance" element={<WithDrawBalance />} />
                         <Route path="/match-result" element={<AdminMultiplier />} />
                         <Route path="/admin/match-investments" element={<AdminMatchInvestments />} />
+                        <Route path="/update-restrict-user" element={<UpdateRestrictUser />} />
                     </Route>
                 </Routes>
             </div>

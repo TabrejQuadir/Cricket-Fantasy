@@ -32,6 +32,11 @@ exports.investInMatch = async (req, res) => {
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ message: "User not found" });
 
+        // ✅ Check if the user is restricted
+        if (user.isRestricted) {
+            return res.status(403).json({ message: "Your account is restricted. You cannot invest in matches." });
+        }
+
         // Check if the user has an active investment plan
         if (!user.investmentPlan || user.investmentPlan.status !== "Active") {
             return res.status(400).json({ message: "You need an active investment plan to invest." });
@@ -41,9 +46,10 @@ exports.investInMatch = async (req, res) => {
         const match = await Match.findById(matchId);
         if (!match) return res.status(404).json({ message: "Match not found" });
 
-        // ✅ Check if the user is a first-time investor (use `user.firstTimeFreeInvestment`)
+        const minInvestment = match.pricePerTeam * match.minTeamsPerUser; // ✅ Calculate min investment
+
+        // ✅ Check if the user is a first-time investor
         if (user.firstTimeFreeInvestment) {
-            // ✅ First-time users can only invest ₹100
             if (amount !== 100) {
                 return res.status(400).json({
                     message: "As a first-time investor, you can only invest exactly ₹100."
@@ -52,10 +58,10 @@ exports.investInMatch = async (req, res) => {
             // ✅ After first investment, reset first-time flag
             user.firstTimeFreeInvestment = false;
         } else {
-            // ✅ Old users must invest in multiples of match.pricePerTeam
-            if (amount % match.pricePerTeam !== 0) {
+            // ✅ Old users must invest at least the minimum required amount
+            if (amount < minInvestment || amount % match.pricePerTeam !== 0) {
                 return res.status(400).json({
-                    message: `Investment amount must be in multiples of ₹${match.pricePerTeam}.`
+                    message: `Minimum investment is ₹${minInvestment}, and investments must be in multiples of ₹${match.pricePerTeam}.`
                 });
             }
         }
@@ -65,13 +71,13 @@ exports.investInMatch = async (req, res) => {
             return res.status(400).json({ message: "Insufficient balance. Please add funds to invest." });
         }
 
-        // ✅ Deduct balance from user (both first-time and old users)
+        // ✅ Deduct balance from user
         user.balance -= amount;
 
         // ✅ Log investment details
         const newInvestment = {
             matchId,
-            amount, // ✅ Store exact amount invested
+            amount,
             investmentDate: new Date(),
         };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { FaUserCircle, FaEnvelope, FaPhone, FaCrown, FaStar, FaGem, FaSearch, FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+import { FaUserCircle, FaEnvelope, FaPhone, FaCrown, FaStar, FaGem, FaSearch, FaSortAmountDown, FaSortAmountUp, FaExclamationTriangle, FaLock } from "react-icons/fa";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -10,26 +10,25 @@ const Users = () => {
     const [search, setSearch] = useState("");
     const [sortOrder, setSortOrder] = useState("newest");
 
-    // 🔄 Fetch Users from Backend
     useEffect(() => {
         const fetchUsers = async () => {
             setLoading(true);
             setError("");
-    
+
             try {
-                const token = localStorage.getItem("authToken"); // ✅ Get token from localStorage
+                const token = localStorage.getItem("authToken");
                 if (!token) {
                     setError("Unauthorized: No admin token found.");
                     setLoading(false);
                     return;
                 }
-    
+
                 const response = await axios.get("https://backend.prepaidtaskskill.in/api/admin/users", {
                     headers: {
-                        Authorization: `Bearer ${token}`, // ✅ Send token in Authorization header
+                        Authorization: `Bearer ${token}`,
                     },
                 });
-    
+
                 setUsers(response.data);
                 console.log(response.data);
             } catch (error) {
@@ -38,28 +37,23 @@ const Users = () => {
                 setLoading(false);
             }
         };
-    
+
         fetchUsers();
     }, []);
-    
 
-    // 🔍 Filter users by search input
     const filteredUsers = users.filter(user =>
         user.username.toLowerCase().includes(search.toLowerCase()) ||
         user.email.toLowerCase().includes(search.toLowerCase()) ||
         user.whatsappNumber.includes(search)
     );
 
-    // 🔄 Sort users based on ID (New to Old or Old to New)
     const sortedUsers = [...filteredUsers].sort((a, b) =>
         sortOrder === "newest" ? b._id.localeCompare(a._id) : a._id.localeCompare(b._id)
     );
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4 sm:p-6 text-white">
-            {/* 🔍 Search & Sort Bar */}
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
-                {/* Search Bar */}
                 <div className="relative w-full sm:w-2/3 lg:w-1/2">
                     <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-400" />
                     <input
@@ -71,7 +65,6 @@ const Users = () => {
                     />
                 </div>
 
-                {/* Sorting Button */}
                 <button
                     onClick={() => setSortOrder(sortOrder === "newest" ? "oldest" : "newest")}
                     className="flex items-center bg-yellow-500/40 hover:bg-yellow-500/60 text-white px-4 py-2 rounded-xl shadow-md transition-all"
@@ -81,14 +74,12 @@ const Users = () => {
                 </button>
             </div>
 
-            {/* Users List Container */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 className="p-4 sm:p-6 bg-black/50 backdrop-blur-2xl rounded-3xl shadow-[0_0_40px_rgba(253,199,0,0.5)]"
             >
-                {/* Loading & Error Handling */}
                 {loading ? (
                     <p className="text-center text-yellow-400 text-lg">Loading users...</p>
                 ) : error ? (
@@ -103,7 +94,6 @@ const Users = () => {
                                     index % 2 === 0 ? "bg-gray-800/40" : "bg-gray-700/30"
                                 }`}
                             >
-                                {/* User Info */}
                                 <div className="flex flex-col sm:flex-row sm:items-center space-x-0 sm:space-x-4">
                                     <FaUserCircle className="text-4xl sm:text-5xl text-yellow-400 mx-auto sm:mx-0" />
                                     <div className="text-center sm:text-left ml-4">
@@ -119,9 +109,10 @@ const Users = () => {
                                     </div>
                                 </div>
 
-                                {/* Active Plan */}
-                                <div className="mt-4 sm:mt-0 flex justify-center sm:justify-end">
-                                    <PlanBadge plan={user.investmentPlan?.planName} />
+                                <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                                    <PlanBadge plan={user.investmentPlan?.planName} status={user.investmentPlan?.status} />
+                                    <VipBadge vipLevel={user.vipLevel} />
+                                    {user.isRestricted && <RestrictedBadge />}
                                 </div>
                             </motion.li>
                         ))}
@@ -134,27 +125,39 @@ const Users = () => {
     );
 };
 
-/* ✅ Active Plan Badge Component */
-const PlanBadge = ({ plan }) => {
+const PlanBadge = ({ plan, status }) => {
     if (!plan) return <span className="text-gray-400 text-sm italic">No Active Plan</span>;
 
-    const planStyles = {
-        Basic: "bg-gradient-to-r from-gray-400 to-gray-600 text-white",
-        Premium: "bg-gradient-to-r from-blue-400 to-blue-600 text-white",
-        Elite: "bg-gradient-to-r from-yellow-400 to-yellow-600 text-black",
-    };
-
-    const planIcons = {
-        Basic: <FaStar className="mr-2 text-lg" />,
-        Premium: <FaGem className="mr-2 text-lg" />,
-        Elite: <FaCrown className="mr-2 text-lg" />,
+    const planColors = {
+        Basic: "bg-gray-500",
+        Premium: "bg-blue-500",
+        Elite: "bg-yellow-500",
     };
 
     return (
-        <span className={`flex items-center px-4 py-2 rounded-xl font-semibold shadow-md ${planStyles[plan] || "bg-gray-700"}`}>
-            {planIcons[plan] || <FaCrown className="mr-2 text-lg" />} {plan || "No Plan"}
+        <span className={`flex items-center px-4 py-2 rounded-xl font-semibold shadow-md ${status === "pending" ? "bg-gray-700 text-white" : planColors[plan] || "bg-gray-700"}`}>
+            {status === "pending" ? <FaExclamationTriangle className="mr-2" /> : <FaCrown className="mr-2" />} {status === "pending" ? "Pending Approval" : plan}
         </span>
     );
 };
+
+const VipBadge = ({ vipLevel }) => {
+    if (!vipLevel) return null;
+    
+    const vipColors = {
+        Bronze: "bg-orange-600",
+        Silver: "bg-gray-500",
+        Gold: "bg-yellow-500",
+        Platinum: "bg-blue-500",
+    };
+
+    return <span className={`px-4 py-2 rounded-xl font-semibold ${vipColors[vipLevel] || "bg-gray-700"}`}>{vipLevel} VIP</span>;
+};
+
+const RestrictedBadge = () => (
+    <span className="flex items-center px-4 py-2 rounded-xl bg-red-600 text-white">
+        <FaLock className="mr-2" /> Restricted
+    </span>
+);
 
 export default Users;
