@@ -40,7 +40,7 @@ const WithDrawBalance = () => {
     try {
       const token = localStorage.getItem("authToken");
       await axios.post(
-        `http://localhost:5000/api/withdrawals/admin/${requestId}/update-status`,
+        `https://backend.prepaidtaskskill.in/api/withdrawals/admin/${requestId}/update-status`,
         { requestId, status, reason: status === "Rejected" ? rejectReason : undefined },
         { headers: { Authorization: `Bearer ${token}` } }
       );

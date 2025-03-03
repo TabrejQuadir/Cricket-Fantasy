@@ -55,7 +55,7 @@ export default function ProfilePage() {
                         {/* Restriction Message */}
 
                         {user.isRestricted && (
-                            <p className="text-red-500 text-lg font-semibold">⚠️ You are restricted ⚠️</p>
+                            <p className="text-red-500 text-lg font-semibold">⚠️ You are restricted for 30 days ⚠️</p>
                         )}
                         <p className="text-gray-300 text-sm md:text-base flex items-center space-x-2">
                             <FaIdCard className="text-yellow-300" />
@@ -161,7 +161,6 @@ export default function ProfilePage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleLogout}
-                    disabled={user?.isRestricted}
                     className={`w-full py-3 text-sm md:text-lg font-semibold rounded-xl  bg-gradient-to-r from-red-600 to-red-800 text-white shadow-lg hover:shadow-xl transition-all cursor-pointer
                         `}
                 >
