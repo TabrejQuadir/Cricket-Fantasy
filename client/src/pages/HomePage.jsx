@@ -8,6 +8,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import InvestmentPlans from "../components/InvestmentPlans";
 import LimitedTimeOffer from "../components/LimitedTimeOffer ";
 import InvestmentProcess from "../components/InvestmentProcess";
+import PWAInstallButton from "../components/PWAInstallButton";
 
 export default function HomePage() {
     const bannerRef = useRef(null);
@@ -60,6 +61,7 @@ export default function HomePage() {
 
                 <WhyChooseUs />
                 <LimitedTimeOffer />
+                <PWAInstallButton/>
             </div>
         </div>
     );

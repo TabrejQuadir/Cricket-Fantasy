@@ -26,7 +26,9 @@ app.use(
             "https://surewin11.vercel.app",
             "https://adminsurewin11.vercel.app",
             "https://surewin11.in",
-            "https://adminskill.top"
+            "https://adminskill.top",
+            "https://surewin.adminskill.top",
+            "https://surewin11cricket.site"
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
