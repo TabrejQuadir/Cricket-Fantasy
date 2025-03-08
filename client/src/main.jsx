@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { AuthProvider } from './context/AuthContext';
+import { PWAProvider } from './context/PWAContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <AuthProvider>  {/* ✅ Wrap your entire app */}
+        <PWAProvider>
+            <AuthProvider>  {/* ✅ Wrap your entire app */}
                 <App />
-        </AuthProvider>
+            </AuthProvider>
+        </PWAProvider>
     </React.StrictMode>
 );

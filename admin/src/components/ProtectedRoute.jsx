@@ -12,12 +12,22 @@ const ProtectedRoute = () => {
 
     try {
         const decodedToken = jwtDecode(authToken);
+        const currentTime = Date.now() / 1000; // Convert to seconds
+
+        if (decodedToken.exp < currentTime) {
+            console.warn("⏳ Token expired! Removing token and redirecting to /auth");
+            localStorage.removeItem("authToken"); // ✅ Remove expired token
+            return <Navigate to="/auth" replace />;
+        }
+
         if (decodedToken.role !== "admin") {
-            console.warn("⚠️ User is NOT an admin! Redirecting to /auth");
+            console.warn("⚠️ User is NOT an admin! Removing token and redirecting to /auth");
+            localStorage.removeItem("authToken"); // ✅ Remove unauthorized token
             return <Navigate to="/auth" replace />;
         }
     } catch (error) {
-        console.error("❌ Invalid token! Redirecting to /auth", error);
+        console.error("❌ Invalid token! Removing token and redirecting to /auth", error);
+        localStorage.removeItem("authToken"); // ✅ Remove corrupted/invalid token
         return <Navigate to="/auth" replace />;
     }
 
