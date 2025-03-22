@@ -7,7 +7,7 @@ import PurchaseModal from './PurchaseModal'; // Import the modal component
 const plans = [
   {
     name: 'Basic',
-    price: 499,
+    price: 99,
     duration: 1, // 1 month validity
     roi: '🔹30 days Plan',
     icon: <FaDollarSign />,
@@ -15,7 +15,7 @@ const plans = [
   },
   {
     name: 'Premium',
-    price: 999,
+    price: 199,
     duration: 3, // 3 months validity
     roi: '🔥 3 Months + VIP Support',
     icon: <FaStar />,
@@ -23,9 +23,9 @@ const plans = [
   },
   {
     name: 'Elite',
-    price: 1499,
+    price: 399,
     duration: 6, // 6 months validity
-    roi: '🚀 6 Months + Private Group',
+    roi: '🚀 6 Months + VIP Support',
     icon: <FaRocket />,
     badge: 'VIP',
   },
@@ -120,7 +120,6 @@ const InvestmentPlans = () => {
               <div className="plan-details">
                 <p className="plan-price">₹{plan.price}</p>
                 <p className="plan-roi">{plan.roi}</p>
-                <p className="plan-duration"> {plan.duration} Month(s) Validity</p>
               </div>
               <div className="plan-footer">
                 {isActive ? (

@@ -90,10 +90,10 @@ html, body {
   height: 100%;
   background: linear-gradient(110deg,
       transparent 20%,
-      rgba(255, 255, 255, 0.6) 50%,
+      rgba(253, 220, 98, 0.6) 50%,
       transparent 80%);
   transform: skewX(-20deg);
-  animation: shine 2s ease-in-out infinite;
+  animation: shine 4s ease-in-out infinite;
 }
 
 .animate-shine:hover {

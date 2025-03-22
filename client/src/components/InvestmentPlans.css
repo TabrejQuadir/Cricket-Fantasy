@@ -26,16 +26,20 @@
 /* Plans Layout */
 .plans-container {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; /* Allows stacking on small screens */
-    gap: 2rem;
+    justify-content: center;
+    /* Center the cards */
+    align-items: center;
+    flex-wrap: wrap;
+    /* Ensure wrapping on small screens */
+    gap: 1.5rem;
     margin-top: 2rem;
 }
 
 /* Cards */
 .plan-card {
     flex: 1;
-    min-width: 280px; /* Prevents the cards from shrinking too much */
+    max-width: 320px;
+    /* Adjusted to fit three cards in a row */
     background: rgba(255, 255, 255, 0.1);
     border-radius: 18px;
     overflow: hidden;
@@ -80,8 +84,15 @@
 
 /* Badge Animation */
 @keyframes badge-glow {
-    0% { transform: scale(1); box-shadow: 0px 0px 10px rgba(255, 223, 0, 0.4); }
-    100% { transform: scale(1.03); box-shadow: 0px 0px 20px rgba(255, 223, 0, 0.8); }
+    0% {
+        transform: scale(1);
+        box-shadow: 0px 0px 10px rgba(255, 223, 0, 0.4);
+    }
+
+    100% {
+        transform: scale(1.03);
+        box-shadow: 0px 0px 20px rgba(255, 223, 0, 0.8);
+    }
 }
 
 /* Plan Header */
@@ -153,24 +164,18 @@
     }
 
     .title {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
     }
 
     .plans-container {
-        flex-direction: column; /* Stack cards vertically */
-        align-items: center;
+        flex-wrap: nowrap;
+        /* Prevent wrapping */
+        justify-content: space-around;
     }
 
     .plan-card {
-        width: 100%;
-        max-width: 400px; /* Prevents stretching on larger screens */
-    }
-}
-
-@media (max-width: 768px) {
-    .investment-plans {
-        max-width: 98%;
-        padding: 1.5rem;
+        max-width: 300px;
+        /* Slightly smaller for medium screens */
     }
 
     .title {
@@ -195,18 +200,25 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .investment-plans {
-        padding: 1rem;
+        max-width: 98%;
+        padding: 1.5rem;
     }
 
-    .title {
-        font-size: 2rem;
+    .plans-container {
+        flex-wrap: nowrap;
+        /* Prevent wrapping */
+        justify-content: space-between;
     }
 
     .plan-card {
-        width: 100%;
-        max-width: 350px;
+        max-width: 270px;
+        /* Reduce size for better fit */
+    }
+
+    .title {
+        font-size: 2.2rem;
     }
 
     .plan-name {
@@ -214,16 +226,77 @@
     }
 
     .plan-price {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .plan-roi {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .cta-button {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         padding: 0.7rem 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .investment-plans {
+        padding: 1rem;
+    }
+
+    .plans-container {
+        flex-wrap: nowrap; /* Ensure cards stay in a row */
+        justify-content: space-between;
+        overflow-x: hidden; /* Remove scroll bar */
+    }
+
+    .plan-details {
+        font-size: 1rem;
+        padding: 0px;
+    }
+
+    .plan-card {
+        max-width: 220px; /* Smaller size for small devices */
+    }
+
+    .plan-header {
+        padding: 1rem;
+        text-align: center;
+        border-bottom: 1px solid black;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .plan-name {
+        font-size: 1rem;
+        text-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+    }
+
+    .plan-badge {
+        font-size: 0.5rem;
+        padding: 4px 8px;
         border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        right: 0;
+    }
+
+    .plan-price {
+        font-size: 1.2rem;
+    }
+
+    .plan-roi {
+        font-size: 0.5rem;
+    }
+
+    .cta-button {
+        font-size: 0.6rem;
+        padding: 0.1rem 1rem;
+        border-radius: 8px;
+    }
+
+    .plan-footer {
+        padding: 0.5rem;
     }
 }

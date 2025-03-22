@@ -9,6 +9,7 @@ import InvestmentPlans from "../components/InvestmentPlans";
 import LimitedTimeOffer from "../components/LimitedTimeOffer ";
 import InvestmentProcess from "../components/InvestmentProcess";
 import PWAInstallButton from "../components/PWAInstallButton";
+import AuthSection from "../components/AuthSection";
 
 export default function HomePage() {
     const bannerRef = useRef(null);
@@ -40,6 +41,7 @@ export default function HomePage() {
     return (
         <div className="relative min-h-screen md:mt-20 mt-16">
             <div className="container mx-auto px-4 py-6">
+                <AuthSection />
                 {/* Win Banner */}
                 <div className="backdrop-blur-lg bg-gradient-to-r from-black/40 to-black/20 border border-[#FDC700]/50 shadow-lg shadow-[#FDC700]/50 rounded-lg p-2 md:p-4 mb-6 md:mb-8">
                     <img
